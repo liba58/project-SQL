@@ -1,8 +1,7 @@
 Dokumentace k projektu
-1. Úvod
-
+1. Úvod   
 Tento projekt analyzuje ekonomická data a jejich vliv na mzdy a ceny potravin v České republice. Hlavním cílem je zjistit, jak různé faktory ovlivňují vývoj cen a mezd a které kategorie potravin zdražují nejpomaleji.
-3. Cíl
+2. Cíl
 Najít odpovědi na pět klíčových otázek.
 4. Výsledky
 -1. otázka: Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?
