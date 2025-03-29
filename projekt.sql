@@ -58,7 +58,7 @@ ORDER BY
 SELECT 
     pf.payroll_year,
     ROUND(AVG(pf.salary), 0) AS avg_salary,  
-    ROUND(AVG(pf.price::numeric), 0) AS avg_price,    
+    ROUND(AVG(pf.price::Numeric), 0) AS avg_price,    
     ROUND(MAX(CASE WHEN lower(category_name) LIKE '%mléko%' AND pf.price > 0 THEN pf.salary / pf.price::NUMERIC END), 0) AS liters_milk,
     ROUND(MAX(CASE WHEN lower(category_name) LIKE '%chléb%' AND pf.price > 0 THEN pf.salary / pf.price::NUMERIC END), 0) AS kg_bread
 FROM t_Libuse_Snablova_project_SQL_primary_final pf
@@ -108,9 +108,9 @@ FROM (
     SELECT 
         payroll_year,
         ROUND(((AVG(salary) - LAG(AVG(salary)) OVER (ORDER BY payroll_year)) / 
-              LAG(AVG(salary)) OVER (ORDER BY payroll_year) * 100)::numeric, 2) AS salary_growth,
+              LAG(AVG(salary)) OVER (ORDER BY payroll_year) * 100)::Numeric, 2) AS salary_growth,
         ROUND(((AVG(price) - LAG(AVG(price)) OVER (ORDER BY payroll_year)) / 
-              LAG(AVG(price)) OVER (ORDER BY payroll_year) * 100)::numeric, 2) AS price_growth
+              LAG(AVG(price)) OVER (ORDER BY payroll_year) * 100)::Numeric, 2) AS price_growth
     FROM t_Libuse_Snablova_project_SQL_primary_final
     GROUP BY payroll_year
 ) sub
@@ -145,11 +145,11 @@ WITH growth_calculations AS (
         year,
         gdp_value,
         ROUND(((gdp_value - LAG(gdp_value) OVER (PARTITION BY country ORDER BY year)) / 
-              LAG(gdp_value) OVER (PARTITION BY country ORDER BY year) * 100)::numeric, 2) AS gdp_growth,
+              LAG(gdp_value) OVER (PARTITION BY country ORDER BY year) * 100)::Numeric, 2) AS gdp_growth,
         ROUND(((avg_salary - LAG(avg_salary) OVER (PARTITION BY country ORDER BY year)) / 
-              LAG(avg_salary) OVER (PARTITION BY country ORDER BY year) * 100)::numeric, 2) AS salary_growth,
+              LAG(avg_salary) OVER (PARTITION BY country ORDER BY year) * 100)::Numeric, 2) AS salary_growth,
         ROUND(((avg_price - LAG(avg_price) OVER (PARTITION BY country ORDER BY year)) / 
-              LAG(avg_price) OVER (PARTITION BY country ORDER BY year) * 100)::numeric, 2) AS food_price_growth
+              LAG(avg_price) OVER (PARTITION BY country ORDER BY year) * 100)::Numeric, 2) AS food_price_growth
     FROM t_Libuse_Snablova_project_SQL_secondary_final
 )
 SELECT 
@@ -170,11 +170,11 @@ FROM (
     SELECT 
     	year,
         ROUND(((gdp_value - LAG(gdp_value) OVER (ORDER BY year)) / 
-              LAG(gdp_value) OVER (ORDER BY year) * 100)::numeric, 2) AS gdp_growth,
+              LAG(gdp_value) OVER (ORDER BY year) * 100)::Numeric, 2) AS gdp_growth,
         ROUND(((avg_salary - LAG(avg_salary) OVER (ORDER BY year)) / 
-              LAG(avg_salary) OVER (ORDER BY year) * 100)::numeric, 2) AS salary_growth,
+              LAG(avg_salary) OVER (ORDER BY year) * 100)::Numeric, 2) AS salary_growth,
         ROUND(((avg_price - LAG(avg_price) OVER (ORDER BY year)) / 
-              LAG(avg_price) OVER (ORDER BY year) * 100)::numeric, 2) AS price_growth
+              LAG(avg_price) OVER (ORDER BY year) * 100)::Numeric, 2) AS price_growth
     FROM t_Libuse_Snablova_project_SQL_secondary_final
 ) subquery;
 
